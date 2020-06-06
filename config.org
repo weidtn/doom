@@ -1,0 +1,153 @@
+* General Settings
+** Personal information
+
+#+BEGIN_SRC elisp
+(setq user-full-name "Nikolai Weidt")
+(setq user-mail-address "weidtn@gmail.com")
+#+END_SRC
+
+** Fonts
+Hack font
+#+BEGIN_SRC elisp
+(setq doom-font (font-spec :family "hack" :size 14))
+#+END_SRC
+
+no pretty code ("for", "return", "lambda" are usually getting replaced with
+fancy symbols)
+#+BEGIN_SRC elisp :results none
+(setq +pretty-code-enabled-modes nil)
+#+END_SRC
+
+** Line numbers
+t, nil or 'relative
+#+BEGIN_SRC elisp
+(setq display-line-numbers-type 'relative)
+#+END_SRC
+
+** Theme
+
+#+BEGIN_SRC elisp
+(use-package! zenburn-theme
+  :ensure t
+  :config
+  (load-theme 'zenburn t))
+#+END_SRC
+
+** Localization
+German weekdays and months
+#+BEGIN_SRC elisp
+(setq calendar-week-start-day 1
+          calendar-day-name-array ["Sonntag" "Montag" "Dienstag" "Mittwoch"
+                                   "Donnerstag" "Freitag" "Samstag"]
+          calendar-month-name-array ["Januar" "Februar" "März" "April" "Mai"
+                                     "Juni" "Juli" "August" "September"
+                                     "Oktober" "November" "Dezember"])
+#+END_SRC
+
+* Org
+
+#+BEGIN_SRC elisp
+(setq org-bullets-bullet-list '("✖" "✚")
+      org-ellipsis "▼")
+(setq org-babel-python-command "python3")
+#+END_SRC
+
+Class scrartcl for orgmode export:
+#+BEGIN_SRC elisp :results none
+(with-eval-after-load "ox-latex"
+  (add-to-list 'org-latex-classes
+               '("koma-article" "\\documentclass{scrartcl}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+#+END_SRC
+
+org-ref
+#+BEGIN_SRC elisp :results none
+(use-package! org-ref
+  :after org
+;;  :init
+;;  :config
+)
+#+END_SRC
+
+* Languages
+** Arduino/Platformio
+Add the required company backend
+#+BEGIN_SRC elisp
+(use-package! platformio-mode
+:config (add-to-list 'company-backends 'company-irony)
+)
+#+END_SRC
+
+Tell irony to use c++ in arduino mode
+#+BEGIN_SRC elisp
+(use-package! irony
+:config
+(add-to-list 'irony-supported-major-modes 'arduino-mode)
+(add-to-list 'irony-lang-compile-option-alist '(arduino-mode . "c++")))
+#+END_SRC
+
+Enable irony for all c++ files, and platformio-mode only
+when needed (platformio.ini present in project root).
+#+BEGIN_SRC elisp
+(add-hook! arduino-mode #'irony-mode 'irony-eldoc 'platformio-conditionally-enable)
+#+END_SRC
+
+Use irony's completion functions.
+#+BEGIN_SRC elisp
+(add-hook! irony-mode
+  (define-key irony-mode-map [remap completion-at-point]
+    'irony-completion-at-point-async)
+
+  (define-key irony-mode-map [remap complete-symbol]
+    'irony-completion-at-point-async)
+
+  (irony-cdb-autosetup-compile-options))
+#+END_SRC
+
+Setup irony for flycheck.
+#+BEGIN_SRC elisp
+(add-hook! flycheck-mode 'flycheck-irony-setup)
+#+END_SRC
+** Python
+** Rust
+** Go
+* Mail
+mu4e basic settings
+#+BEGIN_SRC elisp
+(set-email-account! "aramus92@gmail.com"
+                    '(
+                      ;; (user-mail-address . "aramus92@gmail.com") ;; only for mu < 1.4
+                      (user-full-name . "Nikolai Weidt")
+                      (smtpmail-smtp-server . "smtp.gmail.com")
+                      (smtpmail-smtp-user. "aramus92@gmail.com")
+                      (smtpmail-smtp-service  . 587)
+                      (smtpmail-stream-type   . starttls)
+                      (smtpmail-debug-info    . t)
+                      (mu4e-sent-folder . "/Gesendet")
+                      (mu4e-drafts-folder . "/Entwürfe")
+                      (mu4e-trash-folder . "/Papierkorb")
+                      (mu4e-refile-folder . "/Alle")
+                      (mu4e-compose-signature . "\nBest Regards\n\nNikolai Weidt")
+                      (mu4e-update-interval 300) ;; sec
+                      )
+                    t)
+#+END_SRC
+
+#+RESULTS:
+
+shortcuts:
+#+BEGIN_SRC elisp
+(after! mu4e
+  (setq mu4e-maildir-shortcuts
+        '( (:maildir "/INBOX"              :key ?i)
+           (:maildir "/Gesendet"  :key ?s)
+           (:maildir "/Papierkorb"      :key ?t)
+           (:maildir "/Alle"   :key ?a)))
+  (when (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types))
+  )
+#+END_SRC
