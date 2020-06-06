@@ -62,8 +62,6 @@
 
 (set-email-account! "aramus92@gmail.com"
                     '(
-                      ;; (user-mail-address . "aramus92@gmail.com") ;; only for mu < 1.4
-                      (user-full-name . "Nikolai Weidt")
                       (smtpmail-smtp-server . "smtp.gmail.com")
                       (smtpmail-smtp-user. "aramus92@gmail.com")
                       (smtpmail-smtp-service  . 587)
