@@ -1,5 +1,4 @@
 (setq user-full-name "Nikolai Weidt")
-(setq user-mail-address "weidtn@gmail.com")
 
 (setq doom-font (font-spec :family "hack" :size 14))
 
@@ -72,7 +71,7 @@
                       (mu4e-trash-folder . "/Papierkorb")
                       (mu4e-refile-folder . "/Alle")
                       (mu4e-compose-signature . "\nBest Regards\n\nNikolai Weidt")
-                      (mu4e-update-interval 300) ;; sec
+                      (mu4e-update-interval . 300) ;; sec
                       )
                     t)
 
