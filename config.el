@@ -1,4 +1,5 @@
 (setq user-full-name "Nikolai Weidt")
+(setq user-mail-address "aramus92@gmail.com")
 
 (setq doom-font (font-spec :family "hack" :size 14))
 
@@ -61,7 +62,6 @@
 
 (set-email-account! "aramus92@gmail.com"
                     '(
-                      (user-mail-address . "aramus92@gmail.com")
                       (smtpmail-smtp-server . "smtp.gmail.com")
                       (smtpmail-smtp-user. "aramus92@gmail.com")
                       (smtpmail-smtp-service  . 587)
