@@ -61,6 +61,7 @@
 
 (set-email-account! "aramus92@gmail.com"
                     '(
+                      (user-mail-address . "aramus92@gmail.com")
                       (smtpmail-smtp-server . "smtp.gmail.com")
                       (smtpmail-smtp-user. "aramus92@gmail.com")
                       (smtpmail-smtp-service  . 587)
