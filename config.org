@@ -1,3 +1,5 @@
+* Infos:
+- Mu does throw some error about truncate-string-ellipsis. This is probably because it needs mule-util. Should be fixed soon.
 * General Settings
 ** Personal information
 
@@ -44,6 +46,11 @@ German weekdays and months
                                      "Oktober" "November" "Dezember"])
 #+END_SRC
 
+** Imagemagick
+#+BEGIN_SRC elisp
+  (when (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types))
+#+END_SRC
 * Org
 
 #+BEGIN_SRC elisp
@@ -145,7 +152,8 @@ shortcuts:
            (:maildir "/Gesendet"  :key ?s)
            (:maildir "/Papierkorb"      :key ?t)
            (:maildir "/Alle"   :key ?a)))
-  (when (fboundp 'imagemagick-register-types)
-  (imagemagick-register-types))
-  )
+)
+#+END_SRC
+* Testing
+#+BEGIN_SRC elisp
 #+END_SRC

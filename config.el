@@ -19,6 +19,9 @@
                                      "Juni" "Juli" "August" "September"
                                      "Oktober" "November" "Dezember"])
 
+  (when (fboundp 'imagemagick-register-types)
+  (imagemagick-register-types))
+
 (setq org-bullets-bullet-list '("✖" "✚")
       org-ellipsis "▼")
 (setq org-babel-python-command "python3")
@@ -82,6 +85,6 @@
            (:maildir "/Gesendet"  :key ?s)
            (:maildir "/Papierkorb"      :key ?t)
            (:maildir "/Alle"   :key ?a)))
-  (when (fboundp 'imagemagick-register-types)
-  (imagemagick-register-types))
-  )
+)
+
+
