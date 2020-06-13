@@ -1,5 +1,3 @@
-* Infos:
-- Mu does throw some error about truncate-string-ellipsis. This is probably because it needs mule-util. Should be fixed soon.
 * General Settings
 ** Personal information
 
@@ -13,7 +11,6 @@ Hack font
 #+BEGIN_SRC elisp
 (setq doom-font (font-spec :family "hack" :size 14))
 #+END_SRC
-
 no pretty code ("for", "return", "lambda" are usually getting replaced with
 fancy symbols)
 #+BEGIN_SRC elisp :results none
@@ -46,11 +43,6 @@ German weekdays and months
                                      "Oktober" "November" "Dezember"])
 #+END_SRC
 
-** Imagemagick
-#+BEGIN_SRC elisp
-  (when (fboundp 'imagemagick-register-types)
-  (imagemagick-register-types))
-#+END_SRC
 * Org
 
 #+BEGIN_SRC elisp
@@ -152,8 +144,21 @@ shortcuts:
            (:maildir "/Gesendet"  :key ?s)
            (:maildir "/Papierkorb"      :key ?t)
            (:maildir "/Alle"   :key ?a)))
-)
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types))
+  (mu4e-alert-set-default-style 'libnotify)
+  (mu4e-alert-enable-notifications)
+  (add-to-list 'mu4e-bookmarks
+               '(:name "Test"
+                 :query "flag:unread AND maildir:/INBOX"
+                 :key ?b))
+  (setq mu4e-alert-interesting-mail-query
+        (concat
+         "flag:unread"
+         " AND maildir:/INBOX"))
+  )
 #+END_SRC
-* Testing
+
+* Testing Stuff
 #+BEGIN_SRC elisp
 #+END_SRC

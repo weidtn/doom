@@ -19,9 +19,6 @@
                                      "Juni" "Juli" "August" "September"
                                      "Oktober" "November" "Dezember"])
 
-  (when (fboundp 'imagemagick-register-types)
-  (imagemagick-register-types))
-
 (setq org-bullets-bullet-list '("✖" "✚")
       org-ellipsis "▼")
 (setq org-babel-python-command "python3")
@@ -85,6 +82,18 @@
            (:maildir "/Gesendet"  :key ?s)
            (:maildir "/Papierkorb"      :key ?t)
            (:maildir "/Alle"   :key ?a)))
-)
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types))
+  (mu4e-alert-set-default-style 'libnotify)
+  (mu4e-alert-enable-notifications)
+  (add-to-list 'mu4e-bookmarks
+               '(:name "Test"
+                 :query "flag:unread AND maildir:/INBOX"
+                 :key ?b))
+  (setq mu4e-alert-interesting-mail-query
+        (concat
+         "flag:unread"
+         " AND maildir:/INBOX"))
+  )
 
 
