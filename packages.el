@@ -61,4 +61,5 @@
 (package! flycheck-irony)
 (package! ranger)
 (package! org-ref)
+(package! mu4e-alert)
 ;;; packages.el ends here
