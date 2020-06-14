@@ -60,6 +60,16 @@
 
 (add-hook! flycheck-mode 'flycheck-irony-setup)
 
+(after! python
+  (defun python-shell-completion-native-try ()
+    "Return non-nil if can trigger native completion."
+    (let ((python-shell-completion-native-enable t)
+          (python-shell-completion-native-output-timeout
+           python-shell-completion-native-try-output-timeout))
+      (python-shell-completion-native-get-completions
+       (get-buffer-process (current-buffer))
+       nil "_"))))
+
 (set-email-account! "aramus92@gmail.com"
                     '(
                       (smtpmail-smtp-server . "smtp.gmail.com")
