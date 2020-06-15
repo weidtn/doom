@@ -1,3 +1,4 @@
+(load-file "~/.config/doom/local.el")
 (setq user-full-name "Nikolai Weidt")
 (setq user-mail-address "aramus92@gmail.com")
 
