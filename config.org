@@ -69,7 +69,21 @@ org-ref
 (use-package! org-ref
   :after org
 ;;  :init
-;;  :config
+ :config
+ (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
+ (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
+       org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
+       org-ref-pdf-directory "~/Dropbox/bibliography/bibtex-pdfs/")
+
+;; for helm-bibtex as completion method
+ (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
+      bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
+      bibtex-completion-notes-path "~/Dropbox/bibliography/helm-bibtex-notes")
+
+;; open pdf with system pdf viewer (works on mac)
+(setq bibtex-completion-pdf-open-function
+  (lambda (fpath)
+    (start-process "open" "*open*" "open" fpath)))
 )
 #+END_SRC
 
