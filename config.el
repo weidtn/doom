@@ -20,9 +20,10 @@
                                      "Juni" "Juli" "August" "September"
                                      "Oktober" "November" "Dezember"])
 
+(after! org
 (setq org-bullets-bullet-list '("✖" "✚")
-      org-ellipsis "▼")
-(setq org-babel-python-command "python3")
+      org-image-actual-width "100px"
+      org-ellipsis "▼"))
 
 (with-eval-after-load "ox-latex"
   (add-to-list 'org-latex-classes
@@ -52,6 +53,10 @@
   (lambda (fpath)
     (start-process "open" "*open*" "open" fpath)))
 )
+
+(setq org-babel-python-command "python3")
+(after! org-babel
+(org-babel-jupyter-override-src-block "python"))
 
 (use-package! platformio-mode
 :config (add-to-list 'company-backends 'company-irony)

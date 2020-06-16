@@ -47,9 +47,10 @@ German weekdays and months
 * Org
 
 #+BEGIN_SRC elisp
+(after! org
 (setq org-bullets-bullet-list '("✖" "✚")
-      org-ellipsis "▼")
-(setq org-babel-python-command "python3")
+      org-image-actual-width "100px"
+      org-ellipsis "▼"))
 #+END_SRC
 
 Class scrartcl for orgmode export:
@@ -86,6 +87,15 @@ org-ref
     (start-process "open" "*open*" "open" fpath)))
 )
 #+END_SRC
+
+** Org-babel
+#+BEGIN_SRC elisp
+(setq org-babel-python-command "python3")
+(after! org-babel
+(org-babel-jupyter-override-src-block "python"))
+#+END_SRC
+
+#+RESULTS:
 
 * Languages
 ** Arduino/Platformio
