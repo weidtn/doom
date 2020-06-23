@@ -48,16 +48,18 @@ German weekdays and months
 
 #+BEGIN_SRC elisp
 (after! org
-(setq org-bullets-bullet-list '("✖" "✚")
-      org-image-actual-width "100px"
-      org-ellipsis "▼"))
+  (setq org-bullets-bullet-list '("✖" "✚")
+        org-image-actual-width "100px"
+        org-preview-latex-default-process 'dvisvgm
+        org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f")
+        org-ellipsis "▼"))
 #+END_SRC
 
 Class scrartcl for orgmode export:
 #+BEGIN_SRC elisp :results none
 (with-eval-after-load "ox-latex"
   (add-to-list 'org-latex-classes
-               '("koma-article" "\\documentclass{scrartcl}"
+               '("koma-article" "\\documentclass[parskip]{scrartcl}"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
