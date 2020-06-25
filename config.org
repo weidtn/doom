@@ -98,7 +98,16 @@ org-ref
 #+END_SRC
 
 #+RESULTS:
+** Org-gcal
+#+BEGIN_SRC elisp
+(add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
+(add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
+#+END_SRC
 
+** Org-capture
+#+BEGIN_SRC elisp
+
+#+END_SRC
 * Languages
 ** Arduino/Platformio
 Add the required company backend

@@ -60,6 +60,11 @@
 (after! org-babel
 (org-babel-jupyter-override-src-block "python"))
 
+(add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
+(add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
+
+
+
 (use-package! platformio-mode
 :config (add-to-list 'company-backends 'company-irony)
 )
