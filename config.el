@@ -22,9 +22,10 @@
 
 (after! org
   (setq org-bullets-bullet-list '("✖" "✚")
-        org-image-actual-width "100px"
+        org-image-actual-width  300
         org-preview-latex-default-process 'dvisvgm
         org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f")
+        ort-latex-prefer-user-labels t
         org-ellipsis "▼"))
 
 (with-eval-after-load "ox-latex"
