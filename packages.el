@@ -62,4 +62,5 @@
 (package! ranger)
 (package! org-ref)
 (package! mu4e-alert)
+(package! frames-only-mode)
 ;;; packages.el ends here
