@@ -12,11 +12,6 @@ Hack font
 #+BEGIN_SRC elisp
 (setq doom-font (font-spec :family "hack" :size 14))
 #+END_SRC
-no pretty code ("for", "return", "lambda" are usually getting replaced with
-fancy symbols)
-#+BEGIN_SRC elisp :results none
-(setq +pretty-code-enabled-modes nil)
-#+END_SRC
 
 ** Line numbers
 t, nil or 'relative

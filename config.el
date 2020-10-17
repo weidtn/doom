@@ -4,8 +4,6 @@
 
 (setq doom-font (font-spec :family "hack" :size 14))
 
-(setq +pretty-code-enabled-modes nil)
-
 (setq display-line-numbers-type 'relative)
 
 (use-package! zenburn-theme
