@@ -108,7 +108,7 @@
                       (mu4e-trash-folder . "/Papierkorb")
                       (mu4e-refile-folder . "/Alle")
                       (mu4e-compose-signature . "\nBest Regards\n\nNikolai Weidt")
-                      (mu4e-update-interval . 300) ;; sec
+                      (mu4e-update-interval . 60) ;; sec
                       )
                     t)
 
