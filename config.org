@@ -201,6 +201,11 @@ shortcuts:
   )
 #+END_SRC
 
+* org-roam
+#+BEGIN_SRC elisp
+(push 'company-org-roam company-backends)
+#+END_SRC
+
 * Testing Stuff
 #+BEGIN_SRC elisp
 #+END_SRC

@@ -133,4 +133,6 @@
          " AND maildir:/INBOX"))
   )
 
+(push 'company-org-roam company-backends)
+
 
