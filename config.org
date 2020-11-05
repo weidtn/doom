@@ -175,9 +175,8 @@ mu4e basic settings
                       (mu4e-update-interval . 60) ;; sec
                       )
                     t)
+(setq smtpmail-auth-credentials (expand-file-name "~/.emacs.d/mu4e/.mbsyncpass-gmail.gpg"))
 #+END_SRC
-
-#+RESULTS:
 
 shortcuts:
 #+BEGIN_SRC elisp

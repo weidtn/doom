@@ -111,6 +111,7 @@
                       (mu4e-update-interval . 60) ;; sec
                       )
                     t)
+(setq smtpmail-auth-credentials (expand-file-name "~/.emacs.d/mu4e/.mbsyncpass-gmail.gpg"))
 
 (after! mu4e
   (setq mu4e-maildir-shortcuts
