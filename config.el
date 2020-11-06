@@ -147,13 +147,14 @@
         ))
 ;; deft for browsing notes
 (setq deft-recursive t
-      deft-use-filter-string-for-filename t
-      deft-default-extension "org"
-      deft-directory "/home/aramus/org/roam/")
-;; org-journal for dailies
+      ;;       deft-use-filter-string-for-filename t
+      ;;       deft-default-extension "org"
+      deft-directory "~/org/roam/")
+;; ;; org-journal for dailies
 (setq org-journal-date-prefix "#+title: "
       org-journal-file-format "%Y-%m-%d.org"
-      org-journal-dir org-roam-directory
+      org-journal-dir "~/org/roam/"
+      org-journal-time-format ""
       org-journal-date-format "%A, %d %B %Y")
 
 
