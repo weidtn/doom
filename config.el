@@ -156,5 +156,8 @@
       org-journal-dir "~/org/roam/"
       org-journal-time-format ""
       org-journal-date-format "%A, %d %B %Y")
+(use-package! org-roam-bibtex
+  :after org-roam
+  :hook (org-roam-mode . org-roam-bibtex-mode))
 
 
