@@ -67,4 +67,5 @@
   :recipe (:host github :repo "org-roam/org-roam-bibtex"))
 ;; When using org-roam via the `+roam` flag
 (unpin! org-roam company-org-roam)
+(unpin! bibtex-completion helm-bibtex ivy-bibtex)
 ;;; packages.el ends here
