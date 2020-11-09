@@ -161,5 +161,27 @@
 (use-package! org-roam-bibtex
   :after org-roam
   :hook (org-roam-mode . org-roam-bibtex-mode))
+(setq orb-preformat-keywords
+      '("citekey" "title" "url" "author-or-editor" "keywords" "file")
+      orb-process-file-field t
+      orb-file-field-extensions "pdf")
+
+(setq orb-templates
+      '(("r" "ref" plain (function org-roam-capture--get-point)
+         ""
+         :file-name "${citekey}"
+         :head "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}
+
+- tags ::
+- keywords :: ${keywords}
+
+* ${title}
+:PROPERTIES:
+:Custom_ID: ${citekey}
+:URL: ${url}
+:AUTHOR: ${author-or-editor}
+:NOTER_DOCUMENT: ${file}
+:NOTER_PAGE:
+:END:")))
 
 
