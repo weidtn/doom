@@ -159,6 +159,12 @@ Setup irony for flycheck.
 #+END_SRC
 ** Rust
 ** Go
+** Scheme
+#+begin_src elisp
+(setq geiser-active-implementations '(chicken))
+(setq geiser-chicken-binary "/usr/bin/chicken-csi")
+#+end_src
+
 * Mail
 mu4e basic settings
 #+BEGIN_SRC elisp

@@ -98,6 +98,9 @@
        (get-buffer-process (current-buffer))
        nil "_"))))
 
+(setq geiser-active-implementations '(chicken))
+(setq geiser-chicken-binary "/usr/bin/chicken-csi")
+
 (set-email-account! "aramus92@gmail.com"
                     '(
                       (smtpmail-smtp-server . "smtp.gmail.com")
