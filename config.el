@@ -26,8 +26,9 @@
         org-latex-prefer-user-labels t
         org-agenda-files '("~/org/" "~/org/roam/")
         org-ellipsis "▼")
-  (add-to-list 'org-latex-packages-alist '("version=4" "mhchem"))
-  (add-to-list 'org-latex-packages-alist '("" "siunitx")))
+  (setq org-latex-packages-alist
+        '(("version=4" "mhchem")
+          ("" "siunitx"))))
 
 (with-eval-after-load "ox-latex"
   (add-to-list 'org-latex-classes
