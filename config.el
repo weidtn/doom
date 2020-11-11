@@ -67,6 +67,55 @@
 
 
 
+(after! org-roam
+  (map! :leader
+        :prefix "n"
+        :desc "org-roam" "l" #'org-roam
+        :desc "org-roam-insert" "i" #'org-roam-insert
+        :desc "org-roam-switch-to-buffer" "b" #'org-roam-switch-to-buffer
+        :desc "org-roam-find-file" "f" #'org-roam-find-file
+        :desc "org-roam-show-graph" "g" #'org-roam-show-graph
+        :desc "org-roam-insert-immediate" "I" #'org-roam-insert-immediate
+        :desc "org-roam-capture" "c" #'org-roam-capture
+        ;; :desc "org-journal-new-entry" "j" #'org-journal-new-entry))
+        ))
+;; deft for browsing notes
+(setq deft-recursive t
+      ;;       deft-use-filter-string-for-filename t
+      ;;       deft-default-extension "org"
+      deft-directory "~/org/roam/")
+;; ;; org-journal for dailies
+(setq org-journal-date-prefix "#+title: "
+      org-journal-file-format "%Y-%m-%d.org"
+      org-journal-dir "~/org/roam/"
+      org-journal-time-format ""
+      org-journal-date-format "%A, %d %B %Y")
+(use-package! org-roam-bibtex
+  :after org-roam
+  :hook (org-roam-mode . org-roam-bibtex-mode))
+(setq orb-preformat-keywords
+      '("citekey" "title" "url" "author-or-editor" "keywords" "file")
+      orb-process-file-field t
+      orb-file-field-extensions "pdf")
+
+(setq orb-templates
+      '(("r" "ref" plain (function org-roam-capture--get-point)
+         ""
+         :file-name "${citekey}"
+         :head "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}
+
+- tags ::
+- keywords :: ${keywords}
+
+* ${title}
+:PROPERTIES:
+:Custom_ID: ${citekey}
+:URL: ${url}
+:AUTHOR: ${author-or-editor}
+:NOTER_DOCUMENT: ${file}
+:NOTER_PAGE:
+:END:")))
+
 (use-package! platformio-mode
 :config (add-to-list 'company-backends 'company-irony)
 )
@@ -139,53 +188,9 @@
          " AND maildir:/INBOX"))
   )
 
-(after! org-roam
-  (map! :leader
-        :prefix "n"
-        :desc "org-roam" "l" #'org-roam
-        :desc "org-roam-insert" "i" #'org-roam-insert
-        :desc "org-roam-switch-to-buffer" "b" #'org-roam-switch-to-buffer
-        :desc "org-roam-find-file" "f" #'org-roam-find-file
-        :desc "org-roam-show-graph" "g" #'org-roam-show-graph
-        :desc "org-roam-insert-immediate" "I" #'org-roam-insert-immediate
-        :desc "org-roam-capture" "c" #'org-roam-capture
-        ;; :desc "org-journal-new-entry" "j" #'org-journal-new-entry))
-        ))
-;; deft for browsing notes
-(setq deft-recursive t
-      ;;       deft-use-filter-string-for-filename t
-      ;;       deft-default-extension "org"
-      deft-directory "~/org/roam/")
-;; ;; org-journal for dailies
-(setq org-journal-date-prefix "#+title: "
-      org-journal-file-format "%Y-%m-%d.org"
-      org-journal-dir "~/org/roam/"
-      org-journal-time-format ""
-      org-journal-date-format "%A, %d %B %Y")
-(use-package! org-roam-bibtex
-  :after org-roam
-  :hook (org-roam-mode . org-roam-bibtex-mode))
-(setq orb-preformat-keywords
-      '("citekey" "title" "url" "author-or-editor" "keywords" "file")
-      orb-process-file-field t
-      orb-file-field-extensions "pdf")
-
-(setq orb-templates
-      '(("r" "ref" plain (function org-roam-capture--get-point)
-         ""
-         :file-name "${citekey}"
-         :head "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}
-
-- tags ::
-- keywords :: ${keywords}
-
-* ${title}
-:PROPERTIES:
-:Custom_ID: ${citekey}
-:URL: ${url}
-:AUTHOR: ${author-or-editor}
-:NOTER_DOCUMENT: ${file}
-:NOTER_PAGE:
-:END:")))
+(use-package! helm-bibtex
+  :config
+  (setq bibtex-completion-pdf-field "File")
+  (setq bibtex-completion-pdf-open-function 'find-file))
 
 
