@@ -62,7 +62,7 @@
 (package! ranger)
 (package! org-ref)
 (package! mu4e-alert)
-(package! frames-only-mode)
+;; (package! frames-only-mode)
 (package! org-roam-bibtex
   :recipe (:host github :repo "org-roam/org-roam-bibtex"))
 ;; When using org-roam via the `+roam` flag
