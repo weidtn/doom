@@ -28,11 +28,11 @@
         org-ellipsis "▼")
   (setq org-latex-packages-alist
         '(("version=4" "mhchem")
-          ("" "siunitx"))))
+          ("separate-uncertainty, exponent-product = \\cdot" "siunitx"))))
 
 (with-eval-after-load "ox-latex"
   (add-to-list 'org-latex-classes
-               '("koma-article" "\\documentclass[parskip]{scrartcl}"
+               '("scrartcl" "\\documentclass[parskip]{scrartcl}"
                  ("\\section{%s}" . "\\section*{%s}")
                  ("\\subsection{%s}" . "\\subsection*{%s}")
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
