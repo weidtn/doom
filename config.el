@@ -61,7 +61,8 @@
 
 (setq org-babel-python-command "python3")
 (after! org-babel
-(org-babel-jupyter-override-src-block "python"))
+  (org-babel-jupyter-override-src-block "python")
+  (setq org-babel-clojure-backend 'cider))
 
 (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
 (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))

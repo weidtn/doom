@@ -94,7 +94,8 @@ org-ref
 #+BEGIN_SRC elisp
 (setq org-babel-python-command "python3")
 (after! org-babel
-(org-babel-jupyter-override-src-block "python"))
+  (org-babel-jupyter-override-src-block "python")
+  (setq org-babel-clojure-backend 'cider))
 #+END_SRC
 
 #+RESULTS:
