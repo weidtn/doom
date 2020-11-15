@@ -94,11 +94,11 @@ org-ref
 #+BEGIN_SRC elisp
 (setq org-babel-python-command "python3")
 (after! org-babel
-  (org-babel-jupyter-override-src-block "python")
-  (setq org-babel-clojure-backend 'cider))
+  (org-babel-jupyter-override-src-block "python"))
+
+(setq org-babel-clojure-backend 'cider)
 #+END_SRC
 
-#+RESULTS:
 ** Org-gcal
 #+BEGIN_SRC elisp
 (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
