@@ -55,6 +55,7 @@
   :recipe (:host github :repo "qianmarv/sap-abap-mode"
                  :files ("abap-mode.el" "abap-indention.el")))
 (package! platformio-mode)
+(package! zenburn-theme)
 (package! arduino-mode)
 (package! irony)
 (package! flycheck-irony)

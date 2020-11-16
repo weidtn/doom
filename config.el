@@ -6,7 +6,7 @@
 
 (setq display-line-numbers-type 'relative)
 
-(setq doom-theme 'doom-zenburn)
+(setq doom-theme 'zenburn)
 
 (setq calendar-week-start-day 1
           calendar-day-name-array ["Sonntag" "Montag" "Dienstag" "Mittwoch"

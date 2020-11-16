@@ -22,7 +22,7 @@ t, nil or 'relative
 ** Theme
 
 #+BEGIN_SRC elisp
-(setq doom-theme 'doom-zenburn)
+(setq doom-theme 'zenburn)
 #+END_SRC
 
 ** Localization
