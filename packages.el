@@ -51,7 +51,6 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 ;;; Code:
-(package! zenburn-theme)
 (package! sap-abap-mode
   :recipe (:host github :repo "qianmarv/sap-abap-mode"
                  :files ("abap-mode.el" "abap-indention.el")))
