@@ -26,9 +26,10 @@
         org-ellipsis "▼")
   ;; babel
   (setq org-babel-python-command "python3")
-  (setq org-babel-clojure-backend 'cider)
-  ;; (org-babel-jupyter-override-src-block "python")
-  ;; latex packages used in orgmode:
+  (setq org-babel-clojure-backend 'cider))
+;; (org-babel-jupyter-override-src-block "python")
+;; latex packages used in orgmode:
+(after! ox-latex
   (setq org-latex-packages-alist
         '(("version=4" "mhchem")
           ("separate-uncertainty, exponent-product = \\cdot" "siunitx")))
@@ -68,8 +69,7 @@
 
 
 
-(use-package! org-roam
-  :config
+(after! org-roam
   (map! :leader
         :prefix "n"
         :desc "org-roam" "l" #'org-roam
