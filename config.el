@@ -15,7 +15,8 @@
                                      "Juni" "Juli" "August" "September"
                                      "Oktober" "November" "Dezember"])
 
-(after! org
+(use-package! org
+  :config
   (setq org-bullets-bullet-list '("✖" "✚")
         org-image-actual-width  300
         org-preview-latex-default-process 'dvisvgm
@@ -23,11 +24,15 @@
         org-latex-prefer-user-labels t
         org-agenda-files '("~/org/" "~/org/roam/")
         org-ellipsis "▼")
+  ;; babel
+  (setq org-babel-python-command "python3")
+  (setq org-babel-clojure-backend 'cider)
+  ;; (org-babel-jupyter-override-src-block "python")
+  ;; latex packages used in orgmode:
   (setq org-latex-packages-alist
         '(("version=4" "mhchem")
-          ("separate-uncertainty, exponent-product = \\cdot" "siunitx"))))
-
-(with-eval-after-load "ox-latex"
+          ("separate-uncertainty, exponent-product = \\cdot" "siunitx")))
+  ;; koma script scrartcl:
   (add-to-list 'org-latex-classes
                '("scrartcl" "\\documentclass[parskip]{scrartcl}"
                  ("\\section{%s}" . "\\section*{%s}")
@@ -38,36 +43,33 @@
 
 (use-package! org-ref
   :after org
-;;  :init
- :config
- (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
- (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
-       org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
-       org-ref-pdf-directory "~/Dropbox/bibliography/bibtex-pdfs/")
+  ;;  :init
+  :config
+  (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
+  (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
+        org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
+        org-ref-pdf-directory "~/Dropbox/bibliography/bibtex-pdfs/")
 
-;; for helm-bibtex as completion method
- (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
-      bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
-      bibtex-completion-notes-path "~/Dropbox/bibliography/helm-bibtex-notes")
+  ;; for helm-bibtex as completion method
+  (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
+        bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
+        bibtex-completion-notes-path "~/Dropbox/bibliography/helm-bibtex-notes")
 
-;; open pdf with system pdf viewer (works on mac)
-(setq bibtex-completion-pdf-open-function
-  (lambda (fpath)
-    (start-process "open" "*open*" "open" fpath)))
-)
-
-(setq org-babel-python-command "python3")
-(after! org-babel
-  (org-babel-jupyter-override-src-block "python"))
-
-(setq org-babel-clojure-backend 'cider)
-
-(add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
-(add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
+  ;; open pdf with system pdf viewer (works on mac)
+  (setq bibtex-completion-pdf-open-function
+        (lambda (fpath)
+          (start-process "open" "*open*" "open" fpath)))
+  )
 
 
 
-(after! org-roam
+;; (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
+;; (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
+
+
+
+(use-package! org-roam
+  :config
   (map! :leader
         :prefix "n"
         :desc "org-roam" "l" #'org-roam
@@ -78,31 +80,33 @@
         :desc "org-roam-insert-immediate" "I" #'org-roam-insert-immediate
         :desc "org-roam-capture" "c" #'org-roam-capture
         ;; :desc "org-journal-new-entry" "j" #'org-journal-new-entry))
-        ))
-;; deft for browsing notes
-(setq deft-recursive t
-      ;;       deft-use-filter-string-for-filename t
-      ;;       deft-default-extension "org"
-      deft-directory "~/org/roam/")
-;; ;; org-journal for dailies
-(setq org-journal-date-prefix "#+title: "
-      org-journal-file-format "%Y-%m-%d.org"
-      org-journal-dir "~/org/roam/"
-      org-journal-time-format ""
-      org-journal-date-format "%A, %d %B %Y")
+        )
+  ;; deft for browsing notes
+  (setq deft-recursive t
+        ;;       deft-use-filter-string-for-filename t
+        ;;       deft-default-extension "org"
+        deft-directory "~/org/roam/")
+  ;; ;; org-journal for dailies
+  (setq org-journal-date-prefix "#+title: "
+        org-journal-file-format "%Y-%m-%d.org"
+        org-journal-dir "~/org/roam/"
+        org-journal-time-format ""
+        org-journal-date-format "%A, %d %B %Y"))
+
 (use-package! org-roam-bibtex
   :after org-roam
-  :hook (org-roam-mode . org-roam-bibtex-mode))
-(setq orb-preformat-keywords
-      '("citekey" "title" "url" "author-or-editor" "keywords" "file")
-      orb-process-file-field t
-      orb-file-field-extensions "pdf")
+  :hook (org-roam-mode . org-roam-bibtex-mode)
+  :config
+  (setq orb-preformat-keywords
+        '("citekey" "title" "url" "author-or-editor" "keywords" "file")
+        orb-process-file-field t
+        orb-file-field-extensions "pdf")
 
-(setq orb-templates
-      '(("r" "ref" plain (function org-roam-capture--get-point)
-         ""
-         :file-name "${citekey}"
-         :head "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}
+  (setq orb-templates
+        '(("r" "ref" plain (function org-roam-capture--get-point)
+           ""
+           :file-name "${citekey}"
+           :head "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}
 
 - tags ::
 - keywords :: ${keywords}
@@ -114,16 +118,16 @@
 :AUTHOR: ${author-or-editor}
 :NOTER_DOCUMENT: ${file}
 :NOTER_PAGE:
-:END:")))
+:END:"))))
 
 (use-package! platformio-mode
-:config (add-to-list 'company-backends 'company-irony)
-)
+  :config
+  (add-to-list 'company-backends 'company-irony))
 
 (use-package! irony
-:config
-(add-to-list 'irony-supported-major-modes 'arduino-mode)
-(add-to-list 'irony-lang-compile-option-alist '(arduino-mode . "c++")))
+  :config
+  (add-to-list 'irony-supported-major-modes 'arduino-mode)
+  (add-to-list 'irony-lang-compile-option-alist '(arduino-mode . "c++")))
 
 (add-hook! arduino-mode #'irony-mode 'irony-eldoc 'platformio-conditionally-enable)
 
@@ -138,7 +142,8 @@
 
 (add-hook! flycheck-mode 'flycheck-irony-setup)
 
-(after! python
+(use-package! python
+  :config
   (defun python-shell-completion-native-try ()
     "Return non-nil if can trigger native completion."
     (let ((python-shell-completion-native-enable t)
@@ -148,8 +153,10 @@
        (get-buffer-process (current-buffer))
        nil "_"))))
 
-(setq geiser-active-implementations '(chicken))
-(setq geiser-chicken-binary "/usr/bin/chicken-csi")
+(use-package! geiser
+  :config
+  (setq geiser-active-implementations '(chicken))
+  (setq geiser-chicken-binary "/usr/bin/chicken-csi"))
 
 (set-email-account! "aramus92@gmail.com"
                     '(
@@ -168,7 +175,8 @@
                     t)
 (setq smtpmail-auth-credentials (expand-file-name "~/.emacs.d/mu4e/.mbsyncpass-gmail.gpg"))
 
-(after! mu4e
+(use-package! mu4e
+  :config
   (setq mu4e-maildir-shortcuts
         '( (:maildir "/INBOX"              :key ?i)
            (:maildir "/Gesendet"  :key ?s)
@@ -185,12 +193,15 @@
   (setq mu4e-alert-interesting-mail-query
         (concat
          "flag:unread"
-         " AND maildir:/INBOX"))
-  )
+         " AND maildir:/INBOX")))
 
 (use-package! helm-bibtex
   :config
   (setq bibtex-completion-pdf-field "File")
   (setq bibtex-completion-pdf-open-function 'find-file))
+
+(use-package! magit
+  :config
+  (setq magit-revision-show-gravatars t))
 
 
