@@ -23,7 +23,8 @@
         org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f")
         org-latex-prefer-user-labels t
         org-agenda-files '("~/org/" "~/org/roam/")
-        org-ellipsis "▼")
+        org-ellipsis "▼"
+        org-download-screenshot-method "flameshot gui --raw > %s")
   ;; babel
   (setq org-babel-python-command "python3")
   (setq org-babel-clojure-backend 'cider))
