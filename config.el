@@ -20,6 +20,7 @@
   (setq org-bullets-bullet-list '("✖" "✚")
         org-image-actual-width  300
         org-preview-latex-default-process 'dvisvgm
+        org-latex-listings 'minted
         org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f")
         org-latex-prefer-user-labels t
         org-agenda-files '("~/org/" "~/org/roam/")
