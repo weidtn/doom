@@ -24,8 +24,8 @@
         org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f")
         org-latex-prefer-user-labels t
         org-agenda-files '("~/org/" "~/org/roam/")
-        org-ellipsis "▼"
-        org-download-screenshot-method "flameshot gui --raw > %s")
+        org-ellipsis "▼")
+        
   ;; babel
   (setq org-babel-python-command "python3")
   (setq org-babel-clojure-backend 'cider))
@@ -43,6 +43,9 @@
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+(after! org-download
+  (setq org-download-screenshot-method "flameshot gui --raw > %s"))
 
 (use-package! org-ref
   :after org
