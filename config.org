@@ -67,6 +67,9 @@ German weekdays and months
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+
+(after! org-download
+  (setq org-download-screenshot-method "flameshot gui --raw > %s"))
 #+END_SRC
 
 ** org-ref
