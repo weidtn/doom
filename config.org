@@ -294,4 +294,5 @@ shortcuts:
 #+end_src
 * Testing Stuff
 #+BEGIN_SRC elisp
+(use-package! org-transclusion)
 #+END_SRC

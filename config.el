@@ -213,4 +213,4 @@
   :config
   (setq magit-revision-show-gravatars t))
 
-
+(use-package! org-transclusion)
