@@ -158,6 +158,10 @@
        (get-buffer-process (current-buffer))
        nil "_"))))
 
+(use-package! cider
+  :config
+  (setq nrepl-use-ssh-fallback-for-remote-hosts t))
+
 (use-package! geiser
   :config
   (setq geiser-active-implementations '(chicken))

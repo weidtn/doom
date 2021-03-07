@@ -216,6 +216,12 @@ Setup irony for flycheck.
        (get-buffer-process (current-buffer))
        nil "_"))))
 #+END_SRC
+** Clojure
+#+begin_src elisp :results none
+(use-package! cider
+  :config
+  (setq nrepl-use-ssh-fallback-for-remote-hosts t))
+#+end_src
 ** Rust
 ** Go
 ** Scheme
