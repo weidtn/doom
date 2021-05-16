@@ -56,12 +56,13 @@
        (evil +everywhere); come to the dark side, we have cookies
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
-       (format +onsave)  ; automated prettiness
+       (format); +onsave)  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
        multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
-       parinfer          ; turn lisp into python, sort of
+       (parinfer          ; turn lisp into python, sort of
+        +rust)
        rotate-text       ; cycle region at point between text candidates
        snippets          ; my elves. They type so I don't have to
        word-wrap         ; soft wrapping with language-aware indent
@@ -110,7 +111,8 @@
        ;;agda              ; types of types of types of types...
        ;;assembly          ; assembly for fun or debugging
        cc                ; C/C++/Obj-C madness
-       clojure           ; java with a lisp
+       (clojure
+        +lsp)        ; java with a lisp
        common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
@@ -137,7 +139,7 @@
        ;;lean
        ;;factor
        ledger            ; an accounting system in Emacs
-       ;;lua               ; one-based indices? one-based indices
+       lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
@@ -148,7 +150,7 @@
         ;;+hugo            ; use Emacs for hugo blogging
         +jupyter        ; ipython/jupyter support for babel
         +pandoc          ; export-with-pandoc support
-        +pretty
+        ;; +pretty
         +noter
         +journal
         ;;+pomodoro        ; be fruitful with the tomato technique
@@ -168,12 +170,13 @@
        (rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
         +lsp)
        ;;scala             ; java, but good
-       scheme            ; a fully conniving family of lisps
+       ;; scheme            ; a fully conniving family of lisps
        sh                ; she sells {ba,z,fi}sh shells on the C xor
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; Earth and Moon in alignment for performance.
-       web               ; the tubes
+       web               ; the tube
+       yaml              ; JSON, but readable
 
        :email
        (mu4e
