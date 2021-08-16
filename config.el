@@ -162,10 +162,10 @@
   :config
   (setq nrepl-use-ssh-fallback-for-remote-hosts t))
 
-(use-package! geiser
-  :config
-  (setq geiser-active-implementations '(chicken))
-  (setq geiser-chicken-binary "/usr/bin/chicken-csi"))
+;; (use-package! geiser
+;;   :config
+;;   (setq geiser-active-implementations '(chicken))
+;;   (setq geiser-chicken-binary "/usr/bin/chicken-csi"))
 
 (set-email-account! "aramus92@gmail.com"
                     '(

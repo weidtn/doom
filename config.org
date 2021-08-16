@@ -226,10 +226,10 @@ Setup irony for flycheck.
 ** Go
 ** Scheme
 #+begin_src elisp
-(use-package! geiser
-  :config
-  (setq geiser-active-implementations '(chicken))
-  (setq geiser-chicken-binary "/usr/bin/chicken-csi"))
+;; (use-package! geiser
+;;   :config
+;;   (setq geiser-active-implementations '(chicken))
+;;   (setq geiser-chicken-binary "/usr/bin/chicken-csi"))
 #+end_src
 
 ** Clojure
