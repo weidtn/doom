@@ -164,6 +164,7 @@ German weekdays and months
 :END:"))))
 #+END_SRC
 
+
 * Languages
 ** Arduino/Platformio
 Add the required company backend
@@ -294,5 +295,13 @@ shortcuts:
 #+end_src
 * Testing Stuff
 #+BEGIN_SRC elisp
-(use-package! org-transclusion)
+(use-package! org-transclusion
+  :defer
+  :after org
+  :init
+  (map!
+   :map global-map "<f12>" #'org-transclusion-add
+   :leader
+   :prefix "n"
+   :desc "Org Transclusion Mode" "t" #'org-transclusion-mode))
 #+END_SRC

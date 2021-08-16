@@ -213,4 +213,12 @@
   :config
   (setq magit-revision-show-gravatars t))
 
-(use-package! org-transclusion)
+(use-package! org-transclusion
+  :defer
+  :after org
+  :init
+  (map!
+   :map global-map "<f12>" #'org-transclusion-add
+   :leader
+   :prefix "n"
+   :desc "Org Transclusion Mode" "t" #'org-transclusion-mode))
