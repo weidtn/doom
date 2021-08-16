@@ -83,9 +83,10 @@
         :desc "org-roam-node-find" "f" #'org-roam-node-find
         :desc "org-roam-show-graph" "g" #'org-roam-show-graph
         :desc "org-roam-insert-immediate" "I" #'org-roam-insert-immediate
-        :desc "org-roam-capture" "c" #'org-roam-capture
+        :desc "org-roam-capture" "c" #'org-roam-capture)
         ;; :desc "org-journal-new-entry" "j" #'org-journal-new-entry))
-        )
+
+  (setq org-roam-directory "~/org/roam/")
   ;; deft for browsing notes
   (setq deft-recursive t
         ;;       deft-use-filter-string-for-filename t
