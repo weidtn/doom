@@ -118,7 +118,7 @@ German weekdays and months
         :desc "org-roam" "l" #'org-roam
         :desc "org-roam-insert" "i" #'org-roam-insert
         :desc "org-roam-switch-to-buffer" "b" #'org-roam-switch-to-buffer
-        :desc "org-roam-find-file" "f" #'org-roam-find-file
+        :desc "org-roam-node-find" "f" #'org-roam-node-find
         :desc "org-roam-show-graph" "g" #'org-roam-show-graph
         :desc "org-roam-insert-immediate" "I" #'org-roam-insert-immediate
         :desc "org-roam-capture" "c" #'org-roam-capture
