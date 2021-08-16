@@ -150,7 +150,7 @@
         ;;+hugo            ; use Emacs for hugo blogging
         +jupyter        ; ipython/jupyter support for babel
         +pandoc          ; export-with-pandoc support
-        ;; +pretty
+        +pretty
         +noter
         +journal
         ;;+pomodoro        ; be fruitful with the tomato technique
