@@ -75,4 +75,6 @@
            :repo "nobiot/org-transclusion"
            :branch "main"
            :files ("org-transclusion.el")))
+;; Fix https://github.com/hlissner/doom-emacs/issues/5537
+(package! map :pin "bb50dbaafc0f71743bd9ffd5784258a9fd682c20")
 ;;; packages.el ends here
