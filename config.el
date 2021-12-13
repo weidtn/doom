@@ -16,103 +16,105 @@
                                      "Oktober" "November" "Dezember"])
 
 (use-package! org
-  :config
-  (setq org-bullets-bullet-list '("✖" "✚")
-        org-image-actual-width  300
-        org-preview-latex-default-process 'dvisvgm
-        org-latex-listings 'minted
-        org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f")
-        org-latex-prefer-user-labels t
-        org-agenda-files '("~/org/" "~/org/roam/")
-        org-ellipsis "▼")
-        
-  ;; babel
-  (setq org-babel-python-command "python3")
-  (setq org-babel-clojure-backend 'cider))
-;; (org-babel-jupyter-override-src-block "python")
-;; latex packages used in orgmode:
+ :config
+ (setq org-bullets-bullet-list '("✖" "✚")
+       org-image-actual-width  300
+       org-preview-latex-default-process 'dvisvgm
+       org-latex-listings 'minted
+       org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f")
+       org-latex-prefer-user-labels t
+       ;;org-agenda-files '("~/org/" "~/org/roam/")
+       org-ellipsis "▼")
+
+;;  babel
+;; (setq org-babel-python-command "python3")
+;; (setq org-babel-clojure-backend 'cider)
+)
+
+;; (org-babel-jupyter-override-src-block "python") ;; apparently this is not a function anymore
+
 (after! ox-latex
-  (setq org-latex-packages-alist
-        '(("version=4" "mhchem")
-          ("separate-uncertainty, exponent-product = \\cdot" "siunitx")))
-  ;; koma script scrartcl:
-  (add-to-list 'org-latex-classes
-               '("scrartcl" "\\documentclass[parskip]{scrartcl}"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+ (setq org-latex-packages-alist
+       '(("version=4" "mhchem")
+         ("separate-uncertainty, exponent-product = \\cdot" "siunitx")))
+ ;; koma script scrartcl:
+ (add-to-list 'org-latex-classes
+              '("scrartcl" "\\documentclass[parskip]{scrartcl}"
+                ("\\section{%s}" . "\\section*{%s}")
+                ("\\subsection{%s}" . "\\subsection*{%s}")
+                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 
 (after! org-download
-  (setq org-download-screenshot-method "flameshot gui --raw > %s"))
+ (setq org-download-screenshot-method "flameshot gui --raw > %s"))
 
 (use-package! org-ref
-  :after org
-  ;;  :init
-  :config
-  (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
-  (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
-        org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
-        org-ref-pdf-directory "~/Dropbox/bibliography/bibtex-pdfs/")
+ :after org
+ ;;  :init
+ :config
+ (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
+ (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
+       org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
+       org-ref-pdf-directory "~/Dropbox/bibliography/bibtex-pdfs/")
 
-  ;; for helm-bibtex as completion method
-  (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
-        bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
-        bibtex-completion-notes-path "~/Dropbox/bibliography/helm-bibtex-notes")
+ ;; for helm-bibtex as completion method
+ (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
+       bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
+       bibtex-completion-notes-path "~/Dropbox/bibliography/helm-bibtex-notes")
 
-  ;; open pdf with system pdf viewer (works on mac)
-  (setq bibtex-completion-pdf-open-function
-        (lambda (fpath)
-          (start-process "open" "*open*" "open" fpath)))
-  )
+ ;; open pdf with system pdf viewer (works on mac)
+ (setq bibtex-completion-pdf-open-function
+       (lambda (fpath)
+         (start-process "open" "*open*" "open" fpath)))
+ )
 
 
 
-;; (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
-;; (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
+(add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
+(add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
 
 
 
 (after! org-roam
-  (map! :leader
-        :prefix "n"
-        :desc "org-roam" "l" #'org-roam
-        :desc "org-roam-insert" "i" #'org-roam-insert
-        :desc "org-roam-switch-to-buffer" "b" #'org-roam-switch-to-buffer
-        :desc "org-roam-node-find" "f" #'org-roam-node-find
-        :desc "org-roam-show-graph" "g" #'org-roam-show-graph
-        :desc "org-roam-insert-immediate" "I" #'org-roam-insert-immediate
-        :desc "org-roam-capture" "c" #'org-roam-capture)
-        ;; :desc "org-journal-new-entry" "j" #'org-journal-new-entry))
+ (map! :leader
+       :prefix "n"
+       :desc "org-roam" "l" #'org-roam
+       :desc "org-roam-insert" "i" #'org-roam-insert
+       :desc "org-roam-switch-to-buffer" "b" #'org-roam-switch-to-buffer
+       :desc "org-roam-node-find" "f" #'org-roam-node-find
+       :desc "org-roam-show-graph" "g" #'org-roam-show-graph
+       :desc "org-roam-insert-immediate" "I" #'org-roam-insert-immediate
+       :desc "org-roam-capture" "c" #'org-roam-capture)
+       ;; :desc "org-journal-new-entry" "j" #'org-journal-new-entry))
 
-  (setq org-roam-directory "~/org/roam/")
-  ;; deft for browsing notes
-  (setq deft-recursive t
-        ;;       deft-use-filter-string-for-filename t
-        ;;       deft-default-extension "org"
-        deft-directory "~/org/roam/")
-  ;; ;; org-journal for dailies
-  (setq org-journal-date-prefix "#+title: "
-        org-journal-file-format "%Y-%m-%d.org"
-        org-journal-dir "~/org/roam/"
-        org-journal-time-format ""
-        org-journal-date-format "%A, %d %B %Y"))
+ (setq org-roam-directory "~/org/roam/")
+ ;; deft for browsing notes
+ (setq deft-recursive t
+       ;;       deft-use-filter-string-for-filename t
+       ;;       deft-default-extension "org"
+       deft-directory "~/org/roam/")
+ ;; ;; org-journal for dailies
+ (setq org-journal-date-prefix "#+title: "
+       org-journal-file-format "%Y-%m-%d.org"
+       org-journal-dir "~/org/roam/"
+       org-journal-time-format ""
+       org-journal-date-format "%A, %d %B %Y"))
 
 (use-package! org-roam-bibtex
-  :after org-roam
-  :hook (org-roam-mode . org-roam-bibtex-mode)
-  :config
-  (setq orb-preformat-keywords
-        '("citekey" "title" "url" "author-or-editor" "keywords" "file")
-        orb-process-file-field t
-        orb-file-field-extensions "pdf")
+ :after org-roam
+ :hook (org-roam-mode . org-roam-bibtex-mode)
+ :config
+ (setq orb-preformat-keywords
+       '("citekey" "title" "url" "author-or-editor" "keywords" "file")
+       orb-process-file-field t
+       orb-file-field-extensions "pdf")
 
-  (setq orb-templates
-        '(("r" "ref" plain (function org-roam-capture--get-point)
-           ""
-           :file-name "${citekey}"
-           :head "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}
+ (setq orb-templates
+       '(("r" "ref" plain (function org-roam-capture--get-point)
+          ""
+          :file-name "${citekey}"
+          :head "#+TITLE: ${citekey}: ${title}\n#+ROAM_KEY: ${ref}
 
 - tags ::
 - keywords :: ${keywords}
@@ -126,9 +128,9 @@
 :NOTER_PAGE:
 :END:"))))
 
-(use-package! platformio-mode
-  :config
-  (add-to-list 'company-backends 'company-irony))
+;; (use-package! platformio-mode
+;;   :config
+;;   (add-to-list 'company-backends 'company-irony))
 
 (use-package! irony
   :config
@@ -210,16 +212,18 @@
   (setq bibtex-completion-pdf-field "File")
   (setq bibtex-completion-pdf-open-function 'find-file))
 
-(use-package! magit
-  :config
-  (setq magit-revision-show-gravatars t))
+;;(use-package! magit
+ ;; :config
+  ;;(setq magit-revision-show-gravatars t))
 
-(use-package! org-transclusion
-  :defer
-  :after org
-  :init
-  (map!
-   :map global-map "<f12>" #'org-transclusion-add
-   :leader
-   :prefix "n"
-   :desc "Org Transclusion Mode" "t" #'org-transclusion-mode))
+;;(use-package! org-transclusion
+;;  :defer
+;;  :after org
+;;  :init
+;;  (map!
+;;   :map global-map "<f12>" #'org-transclusion-add
+;;   :leader
+;;   :prefix "n"
+;;   :desc "Org Transclusion Mode" "t" #'org-transclusion-mode))
+
+(doom-load-envvars-file "~/.config/doom/myenv")
