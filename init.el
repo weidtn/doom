@@ -19,11 +19,13 @@
        ;;japanese
 
        :completion
-       company           ; the ultimate code completion backend
+       ;; company           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy
-        +icons)               ; a search engine for love and life
+       (vertico
+        +icons)
+       ;; (ivy
+        ;; +icons               ; a search engine for love and life
 
        :ui
        deft              ; notational velocity for Emacs
@@ -90,7 +92,7 @@
        ;;direnv
        ;;docker
        editorconfig      ; let someone else argue about tabs vs spaces
-       ein               ; tame Jupyter notebooks with emacs
+       ;; ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
        gist              ; interacting with github gists
        (lookup           ; helps you navigate your code and documentation
@@ -194,3 +196,7 @@
        :config
        literate
        (default +bindings +smartparens))
+;; Profile doom
+;; (when doom-debug-p
+;;   (require 'benchmark-init)
+;;   (add-hook 'doom-first-input-hook #'benchmark-init/deactivate))

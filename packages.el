@@ -60,7 +60,7 @@
 (package! irony)
 (package! flycheck-irony)
 (package! ranger)
-(package! org-ref)
+;;(package! org-ref)
 (package! mu4e-alert)
 (package! systemd)
 ;; (package! frames-only-mode)
@@ -78,3 +78,9 @@
 ;; Fix https://github.com/hlissner/doom-emacs/issues/5537
 (package! map :pin "bb50dbaafc0f71743bd9ffd5784258a9fd682c20")
 ;;; packages.el ends here
+(package! benchmark-init)
+
+;; corfu
+(package! corfu)
+;; cape
+(package! cape)
