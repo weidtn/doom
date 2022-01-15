@@ -84,10 +84,7 @@ German weekdays and months
 
 ** org-ref
 #+BEGIN_SRC elisp :results none
-(use-package! org-ref
- :after org
- ;;  :init
- :config
+(after! org-ref
  (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
  (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
        org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
@@ -107,6 +104,11 @@ German weekdays and months
 
 ** Org-babel
 #+BEGIN_SRC elisp
+;; colors in jupyter even with superstar
+(defun display-ansi-colors ()
+  (ansi-color-apply-on-region (point-min) (point-max)))
+
+(add-hook 'org-babel-after-execute-hook #'display-ansi-colors)
 #+END_SRC
 
 ** Org-gcal
@@ -176,6 +178,12 @@ German weekdays and months
 #+END_SRC
 
 * Completion
+** Vertico
+Tramp hostname completion
+#+begin_src elisp :results silent
+(setq completion-styles '(orderless)
+      completion-category-overrides '((file (styles basic partial-completion))))
+#+end_src
 ** Corfu
 Just copied from github README
 #+begin_src elisp :results silent
@@ -237,6 +245,7 @@ Just copied from github README
   (setq tab-always-indent 'complete))
 
 #+end_src
+
 
 TAB-and-Go completion
 #+begin_src elisp :results silent
@@ -384,8 +393,7 @@ basic settings
 
 shortcuts:
 #+BEGIN_SRC elisp
-(use-package! mu4e
-  :config
+(after! mu4e
   (setq mu4e-maildir-shortcuts
         '( (:maildir "/INBOX"              :key ?i)
            (:maildir "/Gesendet"  :key ?s)

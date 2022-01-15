@@ -49,10 +49,7 @@
 (after! org-download
  (setq org-download-screenshot-method "flameshot gui --raw > %s"))
 
-(use-package! org-ref
- :after org
- ;;  :init
- :config
+(after! org-ref
  (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
  (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
        org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
@@ -69,7 +66,11 @@
          (start-process "open" "*open*" "open" fpath)))
  )
 
+;; colors in jupyter even with superstar
+(defun display-ansi-colors ()
+  (ansi-color-apply-on-region (point-min) (point-max)))
 
+(add-hook 'org-babel-after-execute-hook #'display-ansi-colors)
 
 (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
 (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
@@ -127,6 +128,9 @@
 :NOTER_DOCUMENT: ${file}
 :NOTER_PAGE:
 :END:"))))
+
+(setq completion-styles '(orderless)
+      completion-category-overrides '((file (styles basic partial-completion))))
 
 (use-package corfu
   ;; Optional customizations
@@ -292,8 +296,7 @@
                     t)
 (setq smtpmail-auth-credentials (expand-file-name "~/.emacs.d/mu4e/.mbsyncpass-gmail.gpg"))
 
-(use-package! mu4e
-  :config
+(after! mu4e
   (setq mu4e-maildir-shortcuts
         '( (:maildir "/INBOX"              :key ?i)
            (:maildir "/Gesendet"  :key ?s)
