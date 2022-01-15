@@ -60,7 +60,7 @@
 (package! irony)
 (package! flycheck-irony)
 (package! ranger)
-;;(package! org-ref)
+(package! org-ref)
 (package! mu4e-alert)
 (package! systemd)
 ;; (package! frames-only-mode)
