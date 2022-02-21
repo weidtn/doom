@@ -55,12 +55,12 @@
   :recipe (:host github :repo "qianmarv/sap-abap-mode"
                  :files ("abap-mode.el" "abap-indention.el")))
 (package! platformio-mode)
-(package! zenburn-theme)
-(package! arduino-mode)
+;; (package! zenburn-theme)
+;; (package! arduino-mode)
 (package! irony)
 (package! flycheck-irony)
 (package! ranger)
-;;(package! org-ref)
+(package! org-ref)
 (package! mu4e-alert)
 (package! systemd)
 ;; (package! frames-only-mode)
@@ -84,3 +84,6 @@
 (package! corfu)
 ;; cape
 (package! cape)
+
+(when (package! guix)
+  (package! geiser-guile))

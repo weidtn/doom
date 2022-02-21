@@ -6,7 +6,7 @@
 
 (setq display-line-numbers-type 'relative)
 
-(setq doom-theme 'zenburn)
+(setq doom-theme 'doom-zenburn)
 
 (setq calendar-week-start-day 1
           calendar-day-name-array ["Sonntag" "Montag" "Dienstag" "Mittwoch"
@@ -14,6 +14,8 @@
           calendar-month-name-array ["Januar" "Februar" "März" "April" "Mai"
                                      "Juni" "Juli" "August" "September"
                                      "Oktober" "November" "Dezember"])
+
+(doom-load-envvars-file "~/.config/doom/myenv")
 
 (use-package! org
  :config
@@ -50,21 +52,31 @@
  (setq org-download-screenshot-method "flameshot gui --raw > %s"))
 
 (after! org-ref
- (setq reftex-default-bibliography '("~/Dropbox/bibliography/references.bib"))
- (setq org-ref-bibliography-notes "~/Dropbox/bibliography/notes.org"
-       org-ref-default-bibliography '("~/Dropbox/bibliography/references.bib")
-       org-ref-pdf-directory "~/Dropbox/bibliography/bibtex-pdfs/")
+  (setq bibtex-completion-bibliography '("~/Dropbox/bibliography/references.bib"
+                                         "~/Dropbox/bibliography/dei.bib"
+                                         "~/Dropbox/bibliography/master.bib"
+                                         "~/Dropbox/bibliography/archive.bib")
+        bibtex-completion-library-path '("~/Dropbox/emacs/bibliography/bibtex-pdfs/")
+        bibtex-completion-notes-path "~/Dropbox/emacs/bibliography/notes/"
+        bibtex-completion-notes-template-multiple-files "* ${author-or-editor}, ${title}, ${journal}, (${year}) :${=type=}: \n\nSee [[cite:&${=key=}]]\n"
 
- ;; for helm-bibtex as completion method
- (setq bibtex-completion-bibliography "~/Dropbox/bibliography/references.bib"
-       bibtex-completion-library-path "~/Dropbox/bibliography/bibtex-pdfs"
-       bibtex-completion-notes-path "~/Dropbox/bibliography/helm-bibtex-notes")
+        bibtex-completion-additional-search-fields '(keywords)
+        bibtex-completion-display-formats
+        '((article       . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${journal:40}")
+          (inbook        . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} Chapter ${chapter:32}")
+          (incollection  . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
+          (inproceedings . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*} ${booktitle:40}")
+          (t             . "${=has-pdf=:1}${=has-note=:1} ${year:4} ${author:36} ${title:*}"))
+        bibtex-completion-pdf-open-function
+        (lambda (fpath
+                   (call-process "open" nil 0 nil fpath))))
 
- ;; open pdf with system pdf viewer (works on mac)
- (setq bibtex-completion-pdf-open-function
-       (lambda (fpath)
-         (start-process "open" "*open*" "open" fpath)))
- )
+ (define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link-hydra)
+ (setq org-ref-insert-link-function 'org-ref-insert-link-hydra/body
+       ;; org-ref-insert-cite-function 'org-ref-cite-insert-helm
+       org-ref-insert-label-function 'org-ref-insert-label-link
+       org-ref-insert-ref-function 'org-ref-insert-ref-link
+       org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body))))
 
 ;; colors in jupyter even with superstar
 (defun display-ansi-colors ()
@@ -88,7 +100,7 @@
        :desc "org-roam-insert-immediate" "I" #'org-roam-insert-immediate
        :desc "org-roam-capture" "c" #'org-roam-capture)
        ;; :desc "org-journal-new-entry" "j" #'org-journal-new-entry))
-
+ (org-roam-db-autosync-mode +1)
  (setq org-roam-directory "~/org/roam/")
  ;; deft for browsing notes
  (setq deft-recursive t
@@ -132,7 +144,7 @@
 (setq completion-styles '(orderless)
       completion-category-overrides '((file (styles basic partial-completion))))
 
-(use-package corfu
+(use-package! corfu
   ;; Optional customizations
   ;; :custom
   ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
@@ -149,7 +161,15 @@
   ;; :hook ((prog-mode . corfu-mode)
   ;;        (shell-mode . corfu-mode)
   ;;        (eshell-mode . corfu-mode))
-
+  :bind
+  (:map corfu-map
+        ("TAB" . corfu-next)
+        ([tab] . corfu-next)
+        ("S-TAB" . corfu-previous)
+        ([backtab] . corfu-previous))
+  :custom
+  (corfu-cycle t)             ;; Enable cycling for `corfu-next/previous'
+  (corfu-preselect-first nil) ;; Disable candidate preselection
   ;; Recommended: Enable Corfu globally.
   ;; This is recommended since dabbrev can be used globally (M-/).
   :init
@@ -159,7 +179,7 @@
 ;; in the Consult wiki for an advanced Orderless style dispatcher.
 ;; Enable `partial-completion' for files to allow path expansion.
 ;; You may prefer to use `initials' instead of `partial-completion'.
-(use-package orderless
+(use-package! orderless
   :init
   ;; Configure a custom style dispatcher (see the Consult wiki)
   ;; (setq orderless-style-dispatchers '(+orderless-dispatch)
@@ -169,13 +189,13 @@
         completion-category-overrides '((file (styles . (partial-completion))))))
 
 ;; Use dabbrev with Corfu!
-(use-package dabbrev
+(use-package! dabbrev
   ;; Swap M-/ and C-M-/
   :bind (("M-/" . dabbrev-completion)
          ("C-M-/" . dabbrev-expand)))
 
 ;; A few more useful configurations...
-(use-package emacs
+(use-package! emacs
   :init
   ;; TAB cycle if there are only few candidates
   (setq completion-cycle-threshold 3)
@@ -188,23 +208,6 @@
   ;; Enable indentation+completion using the TAB key.
   ;; `completion-at-point' is often bound to M-TAB.
   (setq tab-always-indent 'complete))
-
-(use-package corfu
-  ;; TAB-and-Go customizations
-  :custom
-  (corfu-cycle t)             ;; Enable cycling for `corfu-next/previous'
-  (corfu-preselect-first nil) ;; Disable candidate preselection
-
-  ;; Use TAB for cycling, default is `corfu-complete'.
-  :bind
-  (:map corfu-map
-        ("TAB" . corfu-next)
-        ([tab] . corfu-next)
-        ("S-TAB" . corfu-previous)
-        ([backtab] . corfu-previous))
-
-  :init
-  (corfu-global-mode))
 
 ;; Enable Corfu completion UI
 ;; See the Corfu README for more configuration tips.
@@ -241,8 +244,7 @@
 ;;   :config
 ;;   (add-to-list 'company-backends 'company-irony))
 
-(use-package! irony
-  :config
+(after! irony
   (add-to-list 'irony-supported-major-modes 'arduino-mode)
   (add-to-list 'irony-lang-compile-option-alist '(arduino-mode . "c++")))
 
@@ -259,8 +261,7 @@
 
 (add-hook! flycheck-mode 'flycheck-irony-setup)
 
-(use-package! python
-  :config
+(after! python
   (defun python-shell-completion-native-try ()
     "Return non-nil if can trigger native completion."
     (let ((python-shell-completion-native-enable t)
@@ -269,9 +270,10 @@
       (python-shell-completion-native-get-completions
        (get-buffer-process (current-buffer))
        nil "_"))))
+(after! poetry
+  (setq poetry-tracking-strategy 'projectile))
 
-(use-package! cider
-  :config
+(after! cider
   (setq nrepl-use-ssh-fallback-for-remote-hosts t))
 
 ;; (use-package! geiser
@@ -315,10 +317,10 @@
          "flag:unread"
          " AND maildir:/INBOX")))
 
-(use-package! helm-bibtex
-  :config
-  (setq bibtex-completion-pdf-field "File")
-  (setq bibtex-completion-pdf-open-function 'find-file))
+;; (use-package! helm-bibtex
+;;   :config
+;;   (setq bibtex-completion-pdf-field "File")
+;;   (setq bibtex-completion-pdf-open-function 'find-file))
 
 ;;(use-package! magit
  ;; :config
@@ -334,4 +336,22 @@
 ;;   :prefix "n"
 ;;   :desc "Org Transclusion Mode" "t" #'org-transclusion-mode))
 
-(doom-load-envvars-file "~/.config/doom/myenv")
+(with-eval-after-load 'guix-repl
+    (setq guix-guile-program  "guile"
+    ;; (setq guix-guile-program  '("guix" "repl")
+          guix-config-scheme-compiled-directory  nil
+          guix-repl-use-latest  nil
+          guix-repl-use-server  nil))
+
+(defun guix-buffer-p (&optional buffer)
+  (let ((buf-name (buffer-name (or buffer (current-buffer)))))
+    (not (null (or (string-match "*Guix REPL*" buf-name)
+		   (string-match "*Guix Internal REPL*" buf-name))))))
+
+(defun guix-geiser--set-project (&optional _impl _prompt)
+  (when (and (eq 'guile geiser-impl--implementation)
+	     (null geiser-repl--project)
+	     (guix-buffer-p))
+    (geiser-repl--set-this-buffer-project 'guix)))
+
+(advice-add 'geiser-impl--set-buffer-implementation :after #'guix-geiser--set-project)
