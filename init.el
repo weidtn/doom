@@ -84,7 +84,8 @@
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       (spell +enchant)
+       (spell +flyspell
+              +enchant)
 
        :tools
        ;;ansible
