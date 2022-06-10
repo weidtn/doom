@@ -271,7 +271,8 @@
   (setq poetry-tracking-strategy 'projectile))
 
 (after! cider
-  (setq nrepl-use-ssh-fallback-for-remote-hosts t))
+  (setq nrepl-use-ssh-fallback-for-remote-hosts t
+        cider-clojure-cli-global-options "-A:add-libs"))
 
 ;; (use-package! geiser
 ;;   :config
