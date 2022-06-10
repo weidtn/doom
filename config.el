@@ -210,7 +210,7 @@
 ;; See the Corfu README for more configuration tips.
 (use-package corfu
   :init
-  (corfu-global-mode))
+  (global-corfu-mode))
 
 ;; Add extensions
 (use-package cape
