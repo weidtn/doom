@@ -272,7 +272,7 @@
 
 (after! cider
   (setq nrepl-use-ssh-fallback-for-remote-hosts t
-        cider-clojure-cli-global-options "-A:add-libs"))
+        cider-clojure-cli-aliases ":add-libs"))
 
 ;; (use-package! geiser
 ;;   :config

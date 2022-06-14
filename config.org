@@ -358,7 +358,7 @@ Setup irony for flycheck.
 #+begin_src elisp :results none
 (after! cider
   (setq nrepl-use-ssh-fallback-for-remote-hosts t
-        cider-clojure-cli-global-options "-A:add-libs"))
+        cider-clojure-cli-aliases ":add-libs"))
 #+end_src
 
 ** Rust
