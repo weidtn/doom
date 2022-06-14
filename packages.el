@@ -87,3 +87,6 @@
 
 (when (package! guix)
   (package! geiser-guile))
+
+;; vega-view: needs npm -g install vega vega-lite vega-cli canvas
+(package! vega-view)
